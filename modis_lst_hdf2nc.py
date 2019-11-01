@@ -131,6 +131,7 @@ for i in range(0,n_files):
         eq_cross_time_geo = geo_lat_ds[j].GetMetadataItem('EQUATORCROSSINGTIME.1')
         # Once we find a match, load these into our arrays
         if eq_cross_time==eq_cross_time_geo:# and lst_ds[i].ReadAsArray() is not None:
+			# TODO: use metadata item "AncillaryInputPointer" to find the corresponding geolocation product
             print('({}/{}) Found files for {} {}'.format(i,n_files,date,time), end="\r")
             # Load the LST values and scale them
             lst = lst_scale_factor * lst_ds[i].ReadAsArray()[0:along_track_px,0:cross_track_px]
