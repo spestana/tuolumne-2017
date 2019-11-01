@@ -20,8 +20,9 @@ gdal.UseExceptions()
 parser = argparse.ArgumentParser(description='Creates a NetCDF file from a collection of MODIS LST observations')
 parser.add_argument('-l','--lstdir', required=True, help='Directory containing MxD11_L2 HDF files')
 parser.add_argument('-g','--geodir', required=True, help='Directory containing MxD03 HDF files')
-parser.add_argument('-o','--outdir', required=True, help='Directory to export NetCDF file to')
-parser.add_argument('-f','--outfile', required=False, help='Filename for output NetCDF')
+# TODO: fix output directory and filename arguments
+#parser.add_argument('-o','--outdir', required=True, help='Directory to export NetCDF file to')
+#parser.add_argument('-f','--outfile', required=False, help='Filename for output NetCDF')
 parser.add_argument('-b','--bounds', required=False, help='Latitude and Longitude coordinates for bounding box: min_lon, max_lon, min_lat, max_lat')
 args = parser.parse_args()
 
@@ -29,7 +30,7 @@ args = parser.parse_args()
 # Check to make sure the directory inputs are valid
 inDir = []
 i = 0
-for dir in [args.lstdir, args.geodir, args.outdir]:
+for dir in [args.lstdir, args.geodir]: #, args.outdir]:
 	if dir[-1] != '/' and dir[-1] != '\\': 
 		inDir.append( dir.strip("'").strip('"') + os.sep )
 	else: 
@@ -43,7 +44,7 @@ for dir in [args.lstdir, args.geodir, args.outdir]:
 # Assign arguments to variables
 lst_searchDir = inDir[0]
 geo_searchDir = inDir[1]
-outDir = inDir[2]
+#outDir = inDir[2]
 
 
 #-----------------------FUNCTIONS----------------------------#
@@ -183,14 +184,11 @@ print('Final stacked dataset:')
 print(ds)
 
 # Export this stack of MODIS observations as a new NetCDF file
-if args.outfile == None:
-	filename = 'output.nc'
-	print('Output to: {}'.format(outDir+filename))
-else:
-	filename = outfile
-	print('Output to: {}'.format(outDir+filename))
-
-
-
+#if args.outfile == None:
+#	filename = 'output.nc'
+#	print('Output to: {}'.format(outDir+filename))
+#else:
+#	filename = outfile
+#	print('Output to: {}'.format(outDir+filename))
 # TODO: use the output directory flag instead of this temp location
-ds.to_netcdf('./nc/output.nc',mode='w')
+ds.to_netcdf('./output.nc',mode='w')
