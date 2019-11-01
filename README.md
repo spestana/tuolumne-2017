@@ -1,5 +1,6 @@
 # tuolumne-2017
 
+Jupyter notebooks and python scripts for data-wrangling, and analysis of remote sensing datasets - focused on surface temperatures in the Tuolumne River Basin in California and Grand Mesa in Colorado in 2017.
 
 ### modis_lst_hdf2nc.py
 
