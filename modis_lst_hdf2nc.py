@@ -93,8 +93,11 @@ print('Retrieving Latitude and Longitude datasets from: {}'.format(geo_searchDir
 i = 1
 for path in geo_file_list:
 	print('{}/{}'.format(i,len(geo_file_list)), end="\r")
-	geo_lat_ds.append(gdal.Open('HDF4_SDS:UNKNOWN:"{}":0'.format(path)))
-	geo_lon_ds.append(gdal.Open('HDF4_SDS:UNKNOWN:"{}":1'.format(path)))
+	try:
+		geo_lat_ds.append(gdal.Open('HDF4_SDS:UNKNOWN:"{}":0'.format(path)))
+		geo_lon_ds.append(gdal.Open('HDF4_SDS:UNKNOWN:"{}":1'.format(path)))
+	except RuntimeError:
+		print("Runtimeerror (while looking for lat and lon SDS")
 	i = i+1
 
 
@@ -192,4 +195,4 @@ print(ds)
 #	filename = outfile
 #	print('Output to: {}'.format(outDir+filename))
 # TODO: use the output directory flag instead of this temp location
-ds.to_netcdf('./output.nc',mode='w')
+ds.to_netcdf('\\j-lundquist-3.ce.washington.edu\storage\MODIS\tuolumne-output.nc',mode='w')
