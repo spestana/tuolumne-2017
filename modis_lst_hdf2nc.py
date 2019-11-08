@@ -83,11 +83,12 @@ i = 1
 for path in lst_file_list:
 	print('{}/{}'.format(i,len(lst_file_list)), end="\r")
 	try:
-		lst_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:LST'.format(path)))
-		viewangle_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:View_angle'.format(path)))
+		lst_ds.append(gdal.Open("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:LST".format(path)))
+		viewangle_ds.append(gdal.Open("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:View_angle".format(path)))
+		i = i+1
 	except RuntimeError:
 		err = err+1
-	i = i+1
+
 # TODO: could add option to select which SDS we want to include (right now only doing LST and view angles)
 
 # Open MxD03 files and extract the latitude, and longitude subdatasets.
@@ -99,8 +100,8 @@ i = 1
 for path in geo_file_list:
 	print('{}/{}'.format(i,len(geo_file_list)), end="\r")
 	try:
-		geo_lat_ds.append(gdal.Open('HDF4_SDS:UNKNOWN:"{}":0'.format(path)))
-		geo_lon_ds.append(gdal.Open('HDF4_SDS:UNKNOWN:"{}":1'.format(path)))
+		geo_lat_ds.append(gdal.Open("HDF4_SDS:UNKNOWN:'{}':0".format(path)))
+		geo_lon_ds.append(gdal.Open("HDF4_SDS:UNKNOWN:'{}':1".format(path)))
 		i = i+1
 	except RuntimeError:
 		err_g = err_g+1
