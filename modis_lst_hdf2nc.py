@@ -88,7 +88,8 @@ for path in lst_file_list:
 		i = i+1
 	except RuntimeError:
 		print('RuntimeError:')
-		print(path)
+		print("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:LST".format(path))
+		print("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:View_angle".format(path)
 		_ = input()
 		err = err+1
 
@@ -108,7 +109,8 @@ for path in geo_file_list:
 		i = i+1
 	except RuntimeError:
 		print('RuntimeError:')
-		print(path)
+		print("HDF4_SDS:UNKNOWN:'{}':0".format(path))
+		print("HDF4_SDS:UNKNOWN:'{}':1".format(path))
 		_ = input()
 		err_g = err_g+1
 
