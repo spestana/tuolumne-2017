@@ -86,8 +86,8 @@ for path in lst_file_list:
 		lst_ds.append(gdal.Open("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:LST".format(path)))
 		viewangle_ds.append(gdal.Open("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:View_angle".format(path)))
 		i = i+1
-	except RuntimeError:
-		print('RuntimeError:')
+	except RuntimeError as e:
+		print(e)
 		print("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:LST".format(path))
 		print("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:View_angle".format(path))
 		_ = input()
@@ -107,8 +107,8 @@ for path in geo_file_list:
 		geo_lat_ds.append(gdal.Open("HDF4_SDS:UNKNOWN:'{}':0".format(path)))
 		geo_lon_ds.append(gdal.Open("HDF4_SDS:UNKNOWN:'{}':1".format(path)))
 		i = i+1
-	except RuntimeError:
-		print('RuntimeError:')
+	except RuntimeError as e:
+		print(e)
 		print("HDF4_SDS:UNKNOWN:'{}':0".format(path))
 		print("HDF4_SDS:UNKNOWN:'{}':1".format(path))
 		_ = input()
