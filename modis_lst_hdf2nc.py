@@ -81,8 +81,11 @@ print('Retrieving LST and Viewangle datasets from: {}'.format(lst_searchDir))
 i = 1
 for path in lst_file_list:
 	print('{}/{}'.format(i,len(lst_file_list)), end="\r")
-	lst_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:LST'.format(path)))
-	viewangle_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:View_angle'.format(path)))
+	try:
+		lst_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:LST'.format(path)))
+		viewangle_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:View_angle'.format(path)))
+	except RuntimeError:
+		break
 	i = i+1
 # TODO: could add option to select which SDS we want to include (right now only doing LST and view angles)
 
