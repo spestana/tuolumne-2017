@@ -89,7 +89,7 @@ for path in lst_file_list:
 	except RuntimeError:
 		print('RuntimeError:')
 		print("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:LST".format(path))
-		print("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:View_angle".format(path)
+		print("HDF4_EOS:EOS_SWATH:'{}':MOD_Swath_LST:View_angle".format(path))
 		_ = input()
 		err = err+1
 
