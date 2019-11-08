@@ -89,7 +89,7 @@ for path in lst_file_list:
 	except RuntimeError:
 		print('RuntimeError:')
 		print(path)
-		_ = raw_input()
+		_ = input()
 		err = err+1
 
 # TODO: could add option to select which SDS we want to include (right now only doing LST and view angles)
@@ -109,7 +109,7 @@ for path in geo_file_list:
 	except RuntimeError:
 		print('RuntimeError:')
 		print(path)
-		_ = raw_input()
+		_ = input()
 		err_g = err_g+1
 
 print('LST err: {}\nGEO err:{}'.format(err,err_g))
