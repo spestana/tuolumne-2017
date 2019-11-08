@@ -81,7 +81,7 @@ print('Retrieving LST and Viewangle datasets from: {}'.format(lst_searchDir))
 err=0
 i = 1
 for path in lst_file_list:
-	print('{}/{}'.format(i,len(lst_file_list)), end="\r")
+	#print('{}/{}'.format(i,len(lst_file_list)), end="\r")
 	try:
 		lst_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:LST'.format(path)))
 		viewangle_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:View_angle'.format(path)))
@@ -116,6 +116,7 @@ for path in geo_file_list:
 		_ = input()
 		err_g = err_g+1
 
+# 
 print('LST err: {}\nGEO err:{}'.format(err,err_g))
 
 #-----------------------STACK DATA----------------------------#
