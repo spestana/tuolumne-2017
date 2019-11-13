@@ -95,4 +95,4 @@ modis = modis.sort_values('datetime').reset_index()
 print(modis)
 #-----------------------EXPORT TO PKL FILE----------------------------#
 # Export this data:
-modis.to_pickle("~/output.pkl")
+modis.to_pickle("~/output.pkl", protocol=3)
