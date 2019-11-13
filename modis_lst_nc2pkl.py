@@ -7,8 +7,6 @@ import xarray as xr
 import numpy as np
 import os
 import pandas as pd
-from scipy import interpolate
-import cartopy.crs as ccrs
 import datetime as dt
 import gdal
 import sys, argparse
