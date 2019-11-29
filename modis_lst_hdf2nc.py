@@ -84,13 +84,13 @@ for path in lst_file_list:
 	#print('{}/{}'.format(i,len(lst_file_list)), end="\r")
 	try:
 		lst_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:LST'.format(path)))
-		viewangle_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:View_angle'.format(path)))
+		#viewangle_ds.append(gdal.Open('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:View_angle'.format(path)))
 		i = i+1
 	except RuntimeError as e:
 		print(e)
 		print(path)
 		print('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:LST'.format(path))
-		print('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:View_angle'.format(path))
+		#print('HDF4_EOS:EOS_SWATH:"{}":MOD_Swath_LST:View_angle'.format(path))
 		_ = input()
 		err = err+1
 
@@ -157,24 +157,26 @@ for i in range(0,n_files):
             lst = lst_scale_factor * lst_ds[i].ReadAsArray()[0:along_track_px,0:cross_track_px]
             # Replace the nodata value 0, with Nans
             lst[lst==0.] = np.nan
-            # Read the view angles from the LST product, scale and remove nodata values
-            viewangle = viewangle_ds[i].ReadAsArray()[0:along_track_px,0:cross_track_px].astype(float)
-            viewangle[viewangle==255] = np.nan
-            viewangle = view_scale_factor * viewangle
+            ## Read the view angles from the LST product, scale and remove nodata values
+            #viewangle = viewangle_ds[i].ReadAsArray()[0:along_track_px,0:cross_track_px].astype(float)
+            #viewangle[viewangle==255] = np.nan
+            #viewangle = view_scale_factor * viewangle
             # Read the latitudes and longitudes from the geolocaiton product
             lat = geo_lat_ds[j].ReadAsArray()[0:along_track_px,0:cross_track_px]	
             lon = geo_lon_ds[j].ReadAsArray()[0:along_track_px,0:cross_track_px]
             # Add the MODIS data to an xarray dataset
             if k==0: # If this is our first file, make a new dataset
-                ds = xr.Dataset({'lst': (['line', 'pixel'],  lst),
-                                'viewangle': (['line', 'pixel'],  viewangle)},
+                ds = xr.Dataset({'lst': (['line', 'pixel'],  lst)#,
+                                #'viewangle': (['line', 'pixel'],  viewangle)
+								},
                                 coords={'longitude': (['line', 'pixel'], lon),
                                         'latitude': (['line', 'pixel'], lat),
                                         'time': pd.to_datetime('{} {}'.format(date,time))})
                 k+=1 # add to the successful file load counter
             else: # append to existing dataset
-                ds_new = xr.Dataset({'lst': (['line', 'pixel'],  lst),
-                                'viewangle': (['line', 'pixel'],  viewangle)},
+                ds_new = xr.Dataset({'lst': (['line', 'pixel'],  lst)#,
+                                #'viewangle': (['line', 'pixel'],  viewangle)
+								},
                                 coords={'longitude': (['line', 'pixel'], lon),
                                         'latitude': (['line', 'pixel'], lat),
                                         'time': pd.to_datetime('{} {}'.format(date,time))})
@@ -184,7 +186,7 @@ for i in range(0,n_files):
 
 # Close all the original HDF files loaded
 lst_ds = None
-viewangle_ds = None
+#viewangle_ds = None
 geo_lat_ds = None
 geo_lon_ds = None
 
