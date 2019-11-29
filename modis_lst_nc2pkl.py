@@ -51,14 +51,37 @@ temp_mean=[]
 temp_min=[]
 temp_max=[]
 # Make a separate array of pixels around our point of interest
-m = 0 # for a 3x3 grid, m=1
+m = 1 # for a 3x3 grid, m=1
 
 for t in range(len(coordinates)):
     # Find LST value at the specified coordinates
     temp.append(ds.lst[t][coordinates[t]].values - 273.15)
     try: # trying to get a grid of pixel values around Gaylor Pit
-        temp_grid = ds.lst[t][coordinates[t][0]-m:coordinates[t][0]+1+m,coordinates[t][1]-m:coordinates[t][1]+1+m].values
-        #print(temp_grid)
+		# line coordinate start index
+		if coordinates[t][0]-m < np.min(coordinates[t][0]): # edge detection
+			line_coord_start = np.min(coordinates[t][0])
+		else:
+			line_coord_start = coordinates[t][0]-m
+		# line coordinate stop index	
+		if coordinates[t][0]+1+m < np.max(coordinates[t][0]): # edge detection
+			line_coord_stop = np.max(coordinates[t][0])
+		else:
+			line_coord_stop = coordinates[t][0]+1+m
+		# pixel coordinate start index
+		if coordinates[t][0]-m < np.min(coordinates[t][0]): # edge detection
+			pixel_coord_start = np.min(coordinates[t][0])
+		else:
+			pixel_coord_start = coordinates[t][0]-m
+		# pixel coordate stop index	
+		if coordinates[t][0]+1+m < np.max(coordinates[t][0]): # edge detection
+			pixel_coord_stop = np.max(coordinates[t][0])
+		else:
+			pixel_coord_stop = coordinates[t][0]+1+m
+			
+		print('trying to get pixels at: \n lines {} - {} \n pixels {} - {}'.format(line_coord_start,line_coord_stop,pixel_coord_start,pixel_coord_stop))
+        
+		temp_grid = ds.lst[t][line_coord_start:line_coord_stop,pixel_coord_start:pixel_coord_stop].values
+        print(temp_grid)
         temp_mean.append(np.nanmean(temp_grid) - 273.15) # Converting from K to C
         temp_min.append(np.nanmin(temp_grid) - 273.15)
         temp_max.append(np.nanmax(temp_grid) - 273.15)
