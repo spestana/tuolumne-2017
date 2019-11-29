@@ -41,8 +41,8 @@ coordinates = [np.unravel_index((np.abs(ds.latitude[time] - lat_obs)
                                 + np.abs(ds.longitude[time] - lon_obs)).argmin(), 
                                ds.latitude[time].shape)
                for time in range(0,len(ds.time))]
-			   
-#-----------------------EXTRACT TIMESERIES----------------------------#			   
+               
+#-----------------------EXTRACT TIMESERIES----------------------------#               
 temp=[]
 datetime=[]
 viewtime=[]
@@ -56,40 +56,19 @@ m = 1 # for a 3x3 grid, m=1
 for t in range(len(coordinates)):
     # Find LST value at the specified coordinates
     temp.append(ds.lst[t][coordinates[t]].values - 273.15)
-    try: # trying to get a grid of pixel values around Gaylor Pit
-		# line coordinate start index
-		if coordinates[t][0]-m < np.min(coordinates[t][0]): # edge detection
-			line_coord_start = np.min(coordinates[t][0])
-		else:
-			line_coord_start = coordinates[t][0]-m
-		# line coordinate stop index	
-		if coordinates[t][0]+1+m < np.max(coordinates[t][0]): # edge detection
-			line_coord_stop = np.max(coordinates[t][0])
-		else:
-			line_coord_stop = coordinates[t][0]+1+m
-		# pixel coordinate start index
-		if coordinates[t][0]-m < np.min(coordinates[t][0]): # edge detection
-			pixel_coord_start = np.min(coordinates[t][0])
-		else:
-			pixel_coord_start = coordinates[t][0]-m
-		# pixel coordate stop index	
-		if coordinates[t][0]+1+m < np.max(coordinates[t][0]): # edge detection
-			pixel_coord_stop = np.max(coordinates[t][0])
-		else:
-			pixel_coord_stop = coordinates[t][0]+1+m
-			
-		print('trying to get pixels at: \n lines {} - {} \n pixels {} - {}'.format(line_coord_start,line_coord_stop,pixel_coord_start,pixel_coord_stop))
-        
-		temp_grid = ds.lst[t][line_coord_start:line_coord_stop,pixel_coord_start:pixel_coord_stop].values
-        print(temp_grid)
-        temp_mean.append(np.nanmean(temp_grid) - 273.15) # Converting from K to C
-        temp_min.append(np.nanmin(temp_grid) - 273.15)
-        temp_max.append(np.nanmax(temp_grid) - 273.15)
-    except ValueError: # TODO: improve how nan values are handled when looking at a window of multiple pixels
-        nan_placeholder = np.ones((3,3))*np.nan
-        temp_mean.append(nan_placeholder)
-        temp_min.append(nan_placeholder)
-        temp_max.append(nan_placeholder)
+    # Get a grid of pixel values around Gaylor Pit
+    line_coord_start = np.max([coordinates[t][0]-m, 0]) # detect if we're at the edge, < 0
+    line_coord_stop = np.min([coordinates[t][0]+1+m, 2030]) # detect if we're at the edge, > 2030
+    pixel_coord_start = np.max([coordinates[t][1]-m, 0]) # detect if we're at the edge, < 0
+    pixel_coord_stop = np.min([coordinates[t][1]+1+m, 1354]) # detect if we're at the edge, >1354
+    #print('trying to get pixels at: \n lines {} - {} \n pixels {} - {}'.format(line_coord_start,line_coord_stop,pixel_coord_start,pixel_coord_stop))
+    
+    temp_grid = ds.lst[t][line_coord_start:line_coord_stop,pixel_coord_start:pixel_coord_stop].values
+    #print(temp_grid)
+    temp_mean.append(np.nanmean(temp_grid) - 273.15) # Converting from K to C
+    temp_min.append(np.nanmin(temp_grid) - 273.15)
+    temp_max.append(np.nanmax(temp_grid) - 273.15)
+
 
     
     # Find the date and time of this observation
