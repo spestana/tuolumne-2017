@@ -76,13 +76,13 @@ for t in range(len(coordinates)):
     
     # Record view time and view angle of this point
     #viewtime.append(f.View_time[coordinates].values)
-    viewangle.append(ds.viewangle[t][coordinates[t]].values)
+    #viewangle.append(ds.viewangle[t][coordinates[t]].values)
     
 
 d = {'datetime': datetime, 
      'temperature': temp, 
      #'viewtime': viewtime, 
-     'viewangle': viewangle,
+     #'viewangle': viewangle,
      'temp_min': temp_min,
      'temp_max': temp_max,
      'temp_mean': temp_mean
