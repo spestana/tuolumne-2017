@@ -212,4 +212,4 @@ print(ds)
 #	filename = outfile
 #	print('Output to: {}'.format(outDir+filename))
 # TODO: use the output directory flag instead of this temp location
-ds.to_netcdf('~/tuolumne-output.nc',mode='w')
+ds.to_netcdf('~/output.nc',mode='w')
