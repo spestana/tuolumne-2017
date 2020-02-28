@@ -29,3 +29,13 @@ Input datasets (NetCDF format):
 #### Usage:
 
 ```python modis_lst_nc2pkl.py -i <INPUT NETCDF FILE> -l <LAT> <LON>```
+
+---
+---
+
+### environment setup from scratch (if needed):
+```conda create -n modisenv```
+
+```conda install -c conda-forge gdal xarray netcdf4 ```
+
+```conda install -c anaconda scipy```
