@@ -4,7 +4,23 @@ Jupyter notebooks and python scripts for data-wrangling, and analysis of remote 
 
 ---
 
-### Download MODIS products from NASA Earthdata
+### Environment setup:
+
+Create environment from [environment.yml](https://github.com/spestana/tuolumne-2017/blob/master/environment.yml) file:
+
+```conda env create -f environment.yml```
+
+Or from scratch (if needed):
+
+```conda create -n modisenv```
+
+```conda install -c conda-forge gdal xarray netcdf4 ```
+
+```conda install -c anaconda scipy```
+
+---
+
+### Download MODIS products from NASA Earthdata:
 
  - Using [NASA Earthdata Search](https://search.earthdata.nasa.gov/), search for **MxD03**, **MxD021KM**, or **MxD11_L2** products for the location and time range of interest (replace the "x" in the product name with "O" for MODIS/Terra and "Y" for MODIS/Aqua).
  - Select the "Direct Download" option and use one of the two options (this requires an Eartdata account):
@@ -42,11 +58,3 @@ Input datasets (NetCDF format):
 ```python modis_lst_nc2pkl.py -i <INPUT NETCDF FILE> -l <LAT> <LON>```
 
 ---
----
-
-### environment setup from scratch (if needed):
-```conda create -n modisenv```
-
-```conda install -c conda-forge gdal xarray netcdf4 ```
-
-```conda install -c anaconda scipy```
