@@ -8,11 +8,12 @@ Jupyter notebooks and python scripts for data-wrangling, and analysis of remote 
 
  - Using [NASA Earthdata Search](https://search.earthdata.nasa.gov/), search for **MxD03**, **MxD021KM**, or **MxD11_L2** products for the location and time range of interest (replace the "x" in the product name with "O" for MODIS/Terra and "Y" for MODIS/Aqua).
  - Select the "Direct Download" option and use one of the two options (this requires an Eartdata account):
+   - Click **"View/Download Data Links"**, then "Download Links File" and save in the directory you'd like to download the MODIS products into (**NOTE:** this option has worked best for me).
+     - Run wget to retrieve files in this list: ```wget -i download.txt```
    - Click **"Download Access Script"** and save the shell script within the directory you'd like to download the MODIS products into.
      - Change file permissions with chmod to allow execution: ```chmod 777 download.sh```
      - Run the script: ```./download.sh``` (This requires that you sign in to your Earthdata account; **NOTE:** it is probably best to run this in a terminal multiplexer like [tmux](https://en.wikipedia.org/wiki/Tmux), or in the background)
-   - Click **"View/Download Data Links"**, then "Download Links File" and save in the directory you'd like to download the MODIS products into.
-     - Run wget to retrieve files in this list: ```wget -i download.txt```
+
 ---
 
 ### modis_lst_hdf2nc.py
