@@ -3,6 +3,14 @@
 Jupyter notebooks and python scripts for data-wrangling, and analysis of remote sensing datasets. Focused on surface temperatures in the Tuolumne River Basin in California and Grand Mesa in Colorado in 2017.
 
 ---
+
+### Download MODIS products from NASA Earthdata
+
+ - Using [NASA Earthdata Search](https://search.earthdata.nasa.gov/), search for **MxD03**, **MxD021KM**, or **MxD11_L2** products for the location and time range of interest (replace the "x" in the product name with "O" for MODIS/Terra and "Y" for MODIS/Aqua).
+ - Select the "Direct Download" option to retrieve a "Download Access Script" (shell script) and save within the directory you'd like to download the MODIS products into (This requires an Eartdata account).
+ - Change file permissions with chmod to allow execution: ```chmod 777 download.sh```
+ - Run the script: ```./download.sh``` (This requires that you sign in to your Earthdata account; **NOTE:** it is probably best to run this in a terminal multiplexer like [tmux](https://en.wikipedia.org/wiki/Tmux), or in the background)
+
 ---
 
 ### modis_lst_hdf2nc.py
