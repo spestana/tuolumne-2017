@@ -27,7 +27,7 @@ Or from scratch (if needed):
  - Using [NASA Earthdata Search](https://search.earthdata.nasa.gov/), search for **MxD03**, **MxD021KM**, or **MxD11_L2** products for the location and time range of interest (replace the "x" in the product name with "O" for MODIS/Terra and "Y" for MODIS/Aqua).
  - Select the "Direct Download" option and use one of the two options (this requires an Eartdata account):
    - Click **"View/Download Data Links"**, then "Download Links File" and save in the directory you'd like to download the MODIS products into.
-     - Run wget to retrieve files in this list: ```wget --user=YOUR_USERNAME --ask-password --auth-no-challenge=on -c -i download.txt``` (**NOTE:** see [this thread](https://oceancolor.gsfc.nasa.gov/forum/oceancolor/topic_show.pl?tid=11490) about recent wget issues and the --auth-no-challenge=on flag)
+     - Run wget to retrieve files in this list: ```wget --http-user=YOUR_USERNAME --ask-password --keep-session-cookies --auth-no-challenge=on -c -i download.txt``` (**NOTE:** see [this thread](https://oceancolor.gsfc.nasa.gov/forum/oceancolor/topic_show.pl?tid=11490) about recent wget issues and the --auth-no-challenge=on flag)
    - ~~Click **"Download Access Script"** and save the shell script within the directory you'd like to download the MODIS products into.~~ (**NOTE:** I've been having issues with these scripts, maybe a change in Earthdata authentication?)
      - ~~Change file permissions with chmod to allow execution: ```chmod 777 download.sh```~~
      - ~~Run the script: ```./download.sh``` (This requires that you sign in to your Earthdata account; **NOTE:** it is probably best to run this in a terminal multiplexer like [tmux](https://en.wikipedia.org/wiki/Tmux), or in the background)~~
