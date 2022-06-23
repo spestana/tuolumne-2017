@@ -1,5 +1,7 @@
 # tuolumne-2017
 
+This repo started off for analysis of satellite imagery of the Tuolumne river basin in California and Grand Mesa in Colorado, as part of SnowEx 2017 research. Now I am using this repo to stash useful info for myself, particularly about using MODIS imagery.
+
 Jupyter notebooks and python scripts for data-wrangling, and analysis of remote sensing datasets. Focused on surface temperatures in the Tuolumne River Basin in California and Grand Mesa in Colorado in 2017.
 
 ---
